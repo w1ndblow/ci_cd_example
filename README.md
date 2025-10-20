@@ -12,7 +12,7 @@ source ~/<projec_name>-openrc-v3.sh
 wget http://hub.mcs.mail.ru/repository/terraform-binary/mirror/1.1.9/terraform_1.1.9_linux_amd64.zip
 unzip terraform_1.1.9_linux_amd64.zip
 cp terraform /usr/local/bin
-chmod +x /usr/local/bin/terraform 
+chmod +x /usr/local/bin/terraform
 ```
 Настройка terraform
 ```
@@ -50,9 +50,9 @@ source ~/<projec_name>-openrc-v3.sh
 terrafom apply
 ```
 2.
-Запуск ansible 
+Запуск ansible
 ```
-cd ansible && ansible-playbook -i ../inventory main.yml 
+cd ansible && ansible-playbook -i ../inventory main.yml
 ```
 3.
 Проверка pipeline
@@ -66,4 +66,3 @@ git push origin
 
 
 ```
-

@@ -12,11 +12,11 @@
           --set controller.service.create=false \
           --set controller.config.entries.real-ip-header=proxy_protocol \
           --set controller.config.entries.set-real-ip-from=0.0.0.0/0 \
-          --set-string controller.config.entries.proxy-protocol="True" 
+          --set-string controller.config.entries.proxy-protocol="True"
 
  # Cоздание loadbalancer в кластере, который создаст
  # объект в vkcould, который будет пускать входящий трафик
- # по протоколу http          
+ # по протоколу http
 - name: Copy manifest of loadbalancer.yml
   copy:
     src: loadbalancer.yml

@@ -8,6 +8,3 @@ RUN pip install --upgrade pip --progress-bar off && pip install -r requirements.
 RUN pip install gunicorn --progress-bar off
 
 COPY . /code/
-
-
-
