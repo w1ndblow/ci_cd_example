@@ -18,7 +18,7 @@ resource "openstack_networking_network_v2" "generic" {
   name = "network-generic"
 }
 
-# Наша внешняя сеть называется в наше облоке ext-net 
+# Наша внешняя сеть называется в наше облоке ext-net
 resource "openstack_networking_router_v2" "generic" {
   name                = "router-generic"
   external_network_id = "298117ae-3fa4-4109-9e08-8be5602be5a2"
@@ -32,7 +32,7 @@ resource "openstack_networking_subnet_v2" "local" {
   dns_nameservers = ["8.8.8.8", "8.8.8.4"]
 }
 
-# Router 
+# Router
 resource "openstack_networking_router_interface_v2" "local" {
   router_id = openstack_networking_router_v2.generic.id
   subnet_id = openstack_networking_subnet_v2.local.id
@@ -50,10 +50,10 @@ resource "openstack_compute_floatingip_associate_v2" "ip-test-instance" {
 
 
 #########################
-##    Virtual machine 
+##    Virtual machine
 
 # System volume with Ubuntu 18.04 for virtual machine
-# check 00_openstack.sh 
+# check 00_openstack.sh
 resource "openstack_blockstorage_volume_v2" "test-volume" {
   name        = "test-volume"
   volume_type = "dp1"
@@ -81,7 +81,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
     delete_on_termination = true
   }
 
-  metadata = {  
+  metadata = {
     env = "dev"
   }
 
@@ -92,7 +92,7 @@ resource "openstack_compute_instance_v2" "test-instance" {
 
 
 #########################
-##   Database 
+##   Database
 
 # Cозадаем instance СУБД
 resource "vkcs_db_instance" "db-instance" {
@@ -134,12 +134,12 @@ resource "vkcs_db_user" "app_user" {
   name        = "app_user"
   password    = "${random_string.resource_code.result}"
   dbms_id     = "${vkcs_db_instance.db-instance.id}"
-  
+
   databases   = ["${vkcs_db_database.app.name}"]
 }
 
 #########################
-##   Output 
+##   Output
 
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/inventory.tpl",

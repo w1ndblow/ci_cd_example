@@ -7,7 +7,7 @@ on:
     branches: [ "k8s" ]
 
 env:
-  POSTGRES_DB: "appdb" 
+  POSTGRES_DB: "appdb"
   POSTGRES_USER: "app_user"
   POSTGRES_PASSWORD: "app_password"
   POSTGRES_HOST: "10.254.94.29"
@@ -25,8 +25,8 @@ jobs:
         password: ${{ secrets.DOCKERHUBPASS }}
     - name: "Build docker container"
       run: |
-        docker build . -t windblow/django_example:$GITHUB_SHA 
-        docker push windblow/django_example:$GITHUB_SHA 
+        docker build . -t windblow/django_example:$GITHUB_SHA
+        docker push windblow/django_example:$GITHUB_SHA
     - name: "Execute tests in container"
       run: |
         docker run windblow/django_example:$GITHUB_SHA python manage.py test

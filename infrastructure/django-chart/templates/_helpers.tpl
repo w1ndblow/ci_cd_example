@@ -65,7 +65,7 @@ Create the name of the service account to use
 Возможность добавлять environment переменные
 */}}
 {{- define "django.envVariables" -}}
-{{- if or .Values.envSecrets .Values.envConfigs }} 
+{{- if or .Values.envSecrets .Values.envConfigs }}
 envFrom:
 {{- if .Values.envConfigs }}
 - configMapRef:

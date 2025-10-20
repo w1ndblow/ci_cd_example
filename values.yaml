@@ -10,7 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.0.0"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: gitlab
 nameOverride: ""
 fullnameOverride: ""
 
@@ -27,23 +28,23 @@ podAnnotations: {}
 
 #
 #
-# эти переменные определяются при каждом commit из ci 
+# эти переменные определяются при каждом commit из ci
 #
 #
 
 envConfigs:
- DB_NAME: "appdb"
- DB_USER: "app_user"
- DB_PASSWORD: "app_password"
- DB_HOST: "10.254.98.250"
- DB_PORT: "5432"
- DJANGO_SETTINGS_MODULE: "django_project.settings_production"
+  DB_NAME: "appdb"
+  DB_USER: "app_user"
+  DB_PASSWORD: "app_password"
+  DB_HOST: "10.254.98.250"
+  DB_PORT: "5432"
+  DJANGO_SETTINGS_MODULE: "django_project.settings_production"
 
-command: > 
-   DJANGO_SETTINGS_MODULE=django_project.settings_production python manage.py makemigrations &&
-   python manage.py migrate  &&
-   python manage.py collectstatic --noinput &&
-   gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
+command: >
+  DJANGO_SETTINGS_MODULE=django_project.settings_production python manage.py makemigrations &&
+  python manage.py migrate  &&
+  python manage.py collectstatic --noinput &&
+  gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -67,7 +68,7 @@ ingress:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-  # ingress не умеет работать без host
+    # ingress не умеет работать без host
     - host: "django.local"
       paths:
         - path: /

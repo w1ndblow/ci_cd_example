@@ -37,6 +37,6 @@
     KUBECONFIG: ../k8s-cluster_kubeconfig.yaml
   shell: kubectl apply -f \
            /tmp/{{ item }}
-  with_items: 
+  with_items:
     - service_account.yaml
     - runnerdeployment.yaml

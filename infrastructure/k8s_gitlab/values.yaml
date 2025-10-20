@@ -1,0 +1,17 @@
+image:
+  registry: registry.gitlab.com
+  image: gitlab-org/gitlab-runner
+concurrent: 1
+runners:
+  secret: gitlab-runner-secret
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        privileged = true
+        namespace = "default"
+        image = "alpine"
+gitlabUrl: https://gitlab.com/
+serviceAccount:
+  create: true
+rbac:
+  create: true
