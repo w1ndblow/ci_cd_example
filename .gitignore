@@ -139,7 +139,8 @@ terraform.tfstate
 inventory
 terraform/variables.tf
 .terraform.lock.hcl
-terraform.tfstate.backup
+terraform.tfstate.backup*
+terraform.tfstate.*.backup
 
 # localbase
 db.sqlite3

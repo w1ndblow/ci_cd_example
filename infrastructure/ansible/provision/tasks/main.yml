@@ -9,3 +9,4 @@
 
 - name: "Installing runner"
   import_tasks: ci.yml
+  tags: github

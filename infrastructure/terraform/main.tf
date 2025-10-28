@@ -55,10 +55,11 @@ resource "openstack_compute_floatingip_associate_v2" "ip-test-instance" {
 # System volume with Ubuntu 18.04 for virtual machine
 # check 00_openstack.sh
 resource "openstack_blockstorage_volume_v2" "test-volume" {
+  availability_zone = "MS1"
   name        = "test-volume"
-  volume_type = "dp1"
+  volume_type = "ceph-ssd"
   size        = "20"
-  image_id    = "e0144f62-cbac-4363-9c3d-dbc7ea799f6d"
+  image_id    = "d1652f77-57e3-4d0c-b305-0617e2496f42"  # new ubuntu сhange 28.10.25
 }
 
 resource "openstack_compute_instance_v2" "test-instance" {
@@ -69,8 +70,8 @@ resource "openstack_compute_instance_v2" "test-instance" {
   config_drive      = true
 
   security_groups = [
-    "default",
-    "ssh+www"
+    "06d7a16d-b1c8-41e2-a5ba-ec7b1511edb2", # default
+    "6f6d67b0-070d-45f5-b8e3-ca1098e9f0cb", # ssh
   ]
 
   block_device {
@@ -112,7 +113,7 @@ network {
 }
 
 datastore {
-    version = 13
+    version = 16
     type    = "postgresql"
 }
 }
@@ -125,14 +126,14 @@ resource "vkcs_db_database" "app" {
 
 # Генерим пароль для базы
 resource "random_string" "resource_code" {
-  length  = 10
+  length  = 15
   special = false
-  upper   = false
+  upper   = true
 }
 
 resource "vkcs_db_user" "app_user" {
   name        = "app_user"
-  password    = "${random_string.resource_code.result}"
+  password    = "Test_${random_string.resource_code.result}"
   dbms_id     = "${vkcs_db_instance.db-instance.id}"
 
   databases   = ["${vkcs_db_database.app.name}"]
@@ -151,7 +152,7 @@ resource "local_file" "inventory" {
 }
 
 output "database" {
-  value = "db_password ${random_string.resource_code.result} ${vkcs_db_instance.db-instance.network[0].fixed_ip_v4}"
+  value = "db_password Test_${random_string.resource_code.result} ${vkcs_db_instance.db-instance.network[0].fixed_ip_v4}"
 }
 
 resource "local_file" "prod_env" {
