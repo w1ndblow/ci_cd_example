@@ -1,0 +1,19 @@
+- name: Install nginx
+  apt:
+    update_cache: true
+    name: nginx
+    state: present
+- name: Copy config
+  copy:
+    content: |
+      server {
+        listen {{ nginx_port }};
+        location / {
+          root /var/www/html;
+        }
+      }
+    dest: /etc/nginx/nginx.conf
+- name: Start nginx
+  service:
+    name: nginx
+    state: started

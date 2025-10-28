@@ -1,6 +1,32 @@
-include:
-  - local: ".gitlab/deploy.yaml"
+# include:
+#   - local: ".gitlab/deploy.yaml"
 
 stages:
-  - build
-  - deploy
+  # - build
+  # - deploy
+  - ansible
+
+variables:
+  TARGET_HOST: "89.208.229.220"
+
+ansible:
+  stage: ansible
+  image: python:3.14-bookworm
+  before_script:
+    - pip install ansible
+  script:
+    - mkdir ~/.ssh/ && chmod 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+    - echo -e "UserKnownHostsFile ~/.ssh/known_hosts\n" >> ~/.ssh/config
+    - touch ~/.ssh/known_hosts
+    - ssh ubuntu@$TARGET_HOST uptime
+    - |
+      cat <<EOF > infrastructure/inventory
+      [vkcloud]
+      $TARGET_HOST ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_user=ubuntu
+      EOF
+    - chmod a-w infrastructure/ansible # disable world-writtable access for config
+    - cd infrastructure/ansible
+    - ansible-playbook -i ../inventory main.yml --skip-tags=github
