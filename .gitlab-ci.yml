@@ -1,7 +1,8 @@
 include:
-  - local: ".gitlab/build_with_dind.yaml"
+  #- local: ".gitlab/build_with_dind.yaml"
   #- local: ".gitlab/k8s.yaml"
+  - local: ".gitlab/docker_compose.yaml"
 
 stages:
-  - build
-  # - deploy
+  # - build
+  - deploy

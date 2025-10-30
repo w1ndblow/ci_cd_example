@@ -1,0 +1,14 @@
+variables:
+  POSTGRES_HOST: 192.168.1.10
+
+deploy_docker_compose:
+  stage: deploy
+  tags:
+    - cloud_vm
+  script:
+    - echo "POSTGRES_DB=appdb" >> .env
+    - echo "POSTGRES_USER=app_user" >> .env
+    - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
+    - echo "POSTGRES_HOST=$POSTGRES_HOST" >> .env
+    - docker-compose build
+    - docker-compose up -d
