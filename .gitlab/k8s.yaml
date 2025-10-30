@@ -1,19 +1,14 @@
+include:
+  - local: common.yaml
+
 build:
   stage: build
   image:
     name: moby/buildkit
   tags:
     - microk8s
-  before_script:
-    - mkdir -p  ~/.docker
-    - >
-      echo -n "{
-        \"auths\": {
-          \"$CI_REGISTRY\": {
-            \"auth\": \"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64 -w 0)\"
-          }
-        }
-      }" > ~/.docker/config.json
+  extends:
+    - .before_build
   script:
     # - export BUILDKIT_HOST=docker-container://buildkit
     - >
