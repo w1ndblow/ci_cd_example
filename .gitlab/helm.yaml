@@ -1,5 +1,5 @@
 include:
-  - local: common.yaml
+  - local: ".gitlab/common.yaml"
 
 build:
   stage: build
@@ -10,7 +10,6 @@ build:
   extends:
     - .before_build
   script:
-    # - export BUILDKIT_HOST=docker-container://buildkit
     - >
       buildctl-daemonless.sh build \
        --frontend=dockerfile.v0 \
@@ -24,20 +23,16 @@ deploy:
     name: alpine/helm
   tags:
     - microk8s
+  extends:
+    - .before_build
   script:
-    - >
-      helm upgrade --install --atomic testpostgresql oci://registry-1.docker.io/bitnamicharts/postgresql \
-        --set global.postgresql.auth.username=app_user  \
-        --set global.postgresql.auth.password="$POSTGRES_PASSWORD"	\
-        --set global.postgresql.auth.database=appdb  \
-        --set primary.persistence.enabled=false
+    - kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
     - >
       helm upgrade --install --atomic --values values.yaml django infrastructure/django-chart \
         --set-string envConfigs.DB_PASSWORD="$POSTGRES_PASSWORD" \
-        --set-string envConfigs.DB_HOST="10.152.183.130" \
+        --set-string envConfigs.DB_HOST="testpostgresql.default.svc.cluster.local" \
         --set image.repository="$CI_REGISTRY/w1ndblow/ci-cd-example" \
         --set image.tag=$CI_COMMIT_SHORT_SHA
-    # --set image.tag=$CI_COMMIT_SHORT_SHA
 
 # --kube-apiserver=https://kubernetes.default \
 # --kube-insecure-skip-tls-verify=true \

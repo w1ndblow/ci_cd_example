@@ -10,5 +10,6 @@ deploy_docker_compose:
     - echo "POSTGRES_USER=app_user" >> .env
     - echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
     - echo "POSTGRES_HOST=$POSTGRES_HOST" >> .env
+    - docker-compose down
     - docker-compose build
     - docker-compose up -d
