@@ -1,0 +1,17 @@
+---
+- name: Destroy instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Run Terraform destroy
+      ansible.builtin.command: terraform destroy -auto-approve -input=false
+      args:
+        chdir: "{{ playbook_dir }}/terraform"
+      ignore_errors: true
+
+    - name: Remove instance config
+      ansible.builtin.file:
+        path: "{{ molecule_ephemeral_directory }}/instance_config"
+        state: absent
+      ignore_errors: true
