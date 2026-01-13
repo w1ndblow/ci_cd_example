@@ -132,7 +132,7 @@ dmypy.json
 
 # infra
 
-
+.ansible
 infrastructure/terraform/.terraform*
 infrastructure/terraform-k8s/.terraform*
 terraform.tfstate

@@ -33,7 +33,7 @@
 - name: Restart Docker service
   service:
     name: docker
-    state: restarted
+    state: started
 
 - name: Enable Docker CE service on startup
   service:

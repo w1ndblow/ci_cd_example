@@ -1,0 +1,45 @@
+---
+- name: Create instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Run Terraform apply
+      ansible.builtin.command: terraform apply -auto-approve -input=false
+      args:
+        chdir: "{{ playbook_dir }}/../../../../terraform" # Path to your Terraform files
+
+    - name: Get Terraform output
+      ansible.builtin.command: terraform output -json
+      args:
+        chdir: "{{ playbook_dir }}/../../../../terraform"
+      register: terraform_output
+
+    - name: Set instance connection facts
+      ansible.builtin.set_fact:
+        instance_conf_dict:
+          instance: "{{ item.key }}" # Assuming output "instance_ip" has a single value
+          address: "{{ item.value.value }}"
+          user: "ubuntu" # Your remote user
+          port: 22
+          identity_file: "~/.ssh/id_rsa" # Your SSH key
+      with_dict: "{{ terraform_output.stdout | from_json }}"
+
+    - name: Convert instance config dict to a list
+      ansible.builtin.set_fact:
+        instance_conf: "{{ instance_conf_dict.results | default([instance_conf_dict,]) }}"
+
+    - name: Display a custom message
+      ansible.builtin.debug:
+          msg: "This is  debug message: {{ molecule_ephemeral_directory }} {{ instance_conf }}"
+
+
+    - name: Dump instance config
+      ansible.builtin.copy:
+        content: |
+          # Molecule managed
+          [all]
+          {% for item in instance_conf %}
+          {{ item.address }} ansible_host={{ item.address }} ansible_user={{ item.user }} ansible_port={{ item.port }} ansible_ssh_private_key_file={{ item.identity_file }}
+          {% endfor %}
+        dest: "{{ molecule_ephemeral_directory }}/inventory/molecule_inventory"

@@ -1,0 +1,12 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: default
+provisioner:
+  name: ansible
+  playbooks:
+    create: create.yml
+    destroy: destroy.yml
+verifier:
+  name: testinfra

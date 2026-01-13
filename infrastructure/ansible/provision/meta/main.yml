@@ -1,8 +1,9 @@
 galaxy_info:
-  author: your name
+  author: windblow
   description: your role description
   company: your company (optional)
-
+  role_name: django  # if absent directory name hosting role is used instead
+  namespace: windblow  # if absent, author is used instead
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
