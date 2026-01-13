@@ -1,5 +1,9 @@
 - name: Converge
   hosts: all
-
+  become: true
+  vars:
+    github_owner: w1ndblow
+    github_repo: ci_cd_example
+    github_authtoken: <token>
   roles:
     - role: windblow.django

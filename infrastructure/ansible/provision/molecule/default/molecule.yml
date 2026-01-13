@@ -2,12 +2,7 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
-platforms:
-  - name: instance-1
-    # Add any variables specific to this platform that Terraform needs, e.g.,
-    image: ubuntu:22.04
-    # region: us-east-1
+  name: default
 provisioner:
   name: ansible
   playbooks:

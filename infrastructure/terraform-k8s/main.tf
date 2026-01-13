@@ -1,9 +1,9 @@
 terraform {
-required_providers {
+  required_providers {
     vkcs = {
-      source  = "vk-cs/vkcs"
+      source = "vk-cs/vkcs"
     }
-}
+  }
 }
 
 data "vkcs_kubernetes_clustertemplate" "ct" {
@@ -28,12 +28,12 @@ resource "vkcs_kubernetes_cluster" "k8s-cluster" {
 }
 
 resource "vkcs_kubernetes_node_group" "groups" {
-    cluster_id = vkcs_kubernetes_cluster.k8s-cluster.id
+  cluster_id = vkcs_kubernetes_cluster.k8s-cluster.id
 
-    node_count = 1
-    name = "default"
-    max_nodes = 5
-    min_nodes = 1
+  node_count = 1
+  name       = "default"
+  max_nodes  = 5
+  min_nodes  = 1
 }
 
 
@@ -51,7 +51,7 @@ data "vkcs_compute_flavor" "db" {
 
 ### database
 resource "vkcs_db_instance" "db-instance" {
-  name        = "db-instance"
+  name = "db-instance"
   #keypair     = "${var.keypair_name}"
   flavor_id   = data.vkcs_compute_flavor.db.id
   size        = 8
@@ -64,20 +64,20 @@ resource "vkcs_db_instance" "db-instance" {
     vkcs_kubernetes_cluster.k8s-cluster
   ]
 
-network {
+  network {
     uuid = vkcs_networking_network.k8s.id
-}
+  }
 
-datastore {
+  datastore {
     version = 13
     type    = "postgresql"
-}
+  }
 }
 
 resource "vkcs_db_database" "app" {
-  name        = "appdb"
-  dbms_id     = "${vkcs_db_instance.db-instance.id}"
-  charset     = "utf8"
+  name    = "appdb"
+  dbms_id = vkcs_db_instance.db-instance.id
+  charset = "utf8"
   depends_on = [
     vkcs_db_instance.db-instance
   ]
@@ -92,11 +92,11 @@ resource "random_string" "resource_code" {
 }
 
 resource "vkcs_db_user" "app_user" {
-  name        = "app_user"
-  password    = "${random_string.resource_code.result}"
-  dbms_id     = "${vkcs_db_instance.db-instance.id}"
+  name     = "app_user"
+  password = random_string.resource_code.result
+  dbms_id  = vkcs_db_instance.db-instance.id
 
-  databases   = ["${vkcs_db_database.app.name}"]
+  databases = ["${vkcs_db_database.app.name}"]
   depends_on = [
     vkcs_db_database.app
   ]

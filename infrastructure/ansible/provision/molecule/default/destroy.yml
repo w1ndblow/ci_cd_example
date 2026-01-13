@@ -7,7 +7,7 @@
     - name: Run Terraform destroy
       ansible.builtin.command: terraform destroy -auto-approve -input=false
       args:
-        chdir: "{{ playbook_dir }}/terraform"
+        chdir: "{{ playbook_dir }}/../../../../terraform"
       ignore_errors: true
 
     - name: Remove instance config
