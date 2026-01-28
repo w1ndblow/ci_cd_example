@@ -1,6 +1,10 @@
 include:
   - local: ".gitlab/common.yaml"
 
+stages:
+  - build
+  - deploy
+
 build:
   stage: build
   image:
@@ -33,10 +37,3 @@ deploy:
         --set-string envConfigs.DB_HOST="testpostgresql.default.svc.cluster.local" \
         --set image.repository="$CI_REGISTRY/w1ndblow/ci-cd-example" \
         --set image.tag=$CI_COMMIT_SHORT_SHA
-
-# --kube-apiserver=https://kubernetes.default \
-# --kube-insecure-skip-tls-verify=true \
-# --kube-token=$K8S_SERVICE_ACCOUT_TOKEN \
-# --namespace default
-
-# testpostgresql.default.svc.cluster.local"

@@ -1,0 +1,9 @@
+include:
+  local: ".gitlab/common.yaml"
+
+gate:
+  extends:
+    - .python_job
+  script:
+    - pip install ruff
+    - ruff check .

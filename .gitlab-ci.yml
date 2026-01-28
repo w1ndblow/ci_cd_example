@@ -1,9 +1,13 @@
 include:
-  - local: ".gitlab/build_with_dind.yaml"
-  #- local: ".gitlab/docker_compose.yaml"
-  #- local: ".gitlab/k8s.yaml"
-  #- local: ".gitlab/helm.yaml"
+  #- local: .gitlab/common.yaml
+  - local: .gitlab/build_with_dind.yaml
+  - local: .gitlab/gate_job.yaml
+  - local: .gitlab/test_job.yaml
+  # - local: ".gitlab/upstream.yaml"
+  # - local: ".gitlab/docker_compose.yaml"
+  # - local: ".gitlab/helm_pipeline.yaml"
 
 stages:
+  - gate
   - build
-  #- deploy
+  - test

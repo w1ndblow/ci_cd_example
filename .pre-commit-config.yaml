@@ -1,13 +1,10 @@
 ---
-
 ## adding by ansible
 
 repos:
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0 # put latest release tag from: https://github.com/pre-commit/pre-commit-hooks/releases
     hooks:
-
       - id: check-added-large-files
         name: Check for large files added
         description: Prevents giant files from being committed
@@ -33,11 +30,6 @@ repos:
       - id: check-xml
         name: Check xml files syntax
         description: Verifies xml files syntax
-
- #     - id: check-yaml
- #       name: Check yaml files syntax
- #       description: Verifies yaml files syntax
- #       exclude: component.yml|.gitlab-ci.yml
 
       - id: detect-private-key
         name: Detect for private keys added
