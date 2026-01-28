@@ -1,6 +1,6 @@
 include:
   #- local: .gitlab/common.yaml
-  - local: .gitlab/build_with_dind.yaml
+  - local: .gitlab/build_with_dind_job.yaml
   - local: .gitlab/gate_job.yaml
   - local: .gitlab/test_job.yaml
   # - local: ".gitlab/upstream.yaml"
