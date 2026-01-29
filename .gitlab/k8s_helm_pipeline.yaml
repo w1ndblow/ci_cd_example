@@ -32,7 +32,7 @@ deploy:
   script:
     - kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
     - >
-      helm upgrade --install --atomic --values values.yaml django infrastructure/django-chart \
+      helm upgrade --install --atomic --values infrastructure/configs/values.yaml django infrastructure/django-chart \
         --set-string envConfigs.DB_PASSWORD="$POSTGRES_PASSWORD" \
         --set-string envConfigs.DB_HOST="testpostgresql.default.svc.cluster.local" \
         --set image.repository="$CI_REGISTRY/w1ndblow/ci-cd-example" \
