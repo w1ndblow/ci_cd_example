@@ -30,14 +30,15 @@ spec:
             - name: DB_HOST
               value: postgresql
             - name: DB_PORT
-              value: '5432'
+              value: "5432"
+            - name: VALUES
+              value: "value1"
           command:
             - /bin/sh
             - -c
           args:
-            - 'python manage.py migrate  && python manage.py collectstatic --noinput
-              && gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
-
-              '
+            - >
+              python manage.py migrate  && python manage.py collectstatic --noinput \
+                && gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
           ports:
             - containerPort: 8000

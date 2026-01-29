@@ -7,4 +7,5 @@ gate:
     - .python_job
   script:
     - pip install ruff
+    - echo "there sonar"
     - ruff check .
