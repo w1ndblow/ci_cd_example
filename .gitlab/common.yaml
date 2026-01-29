@@ -1,4 +1,4 @@
-.before_build:
+.docker_settings:
   before_script:
     - mkdir -p  ~/.docker
     - >

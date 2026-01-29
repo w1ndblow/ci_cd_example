@@ -12,7 +12,7 @@ build:
   tags:
     - microk8s
   extends:
-    - .before_build
+    - .docker_settings
   script:
     - >
       buildctl-daemonless.sh build \
@@ -28,7 +28,7 @@ deploy:
   tags:
     - microk8s
   extends:
-    - .before_build
+    - .docker_settings
   script:
     - kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
     - >

@@ -3,6 +3,7 @@ include:
   - local: .gitlab/build_with_dind_job.yaml
   - local: .gitlab/gate_job.yaml
   - local: .gitlab/test_job.yaml
+  - local: .gitlab/promote_image_job.yaml
   # - local: ".gitlab/upstream.yaml"
   # - local: ".gitlab/docker_compose.yaml"
   # - local: ".gitlab/helm_pipeline.yaml"
@@ -11,3 +12,4 @@ stages:
   - gate
   - build
   - test
+  - promote
