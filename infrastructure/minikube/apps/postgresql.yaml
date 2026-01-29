@@ -1,0 +1,48 @@
+---
+# 1. Определение источника (Helm Repository)
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: bitnami
+spec:
+  interval: 1h
+  url: oci://registry-1.docker.io/bitnamicharts
+  type: oci
+---
+# 2. Определение релиза (Helm Release)
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: postgresql
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: postgresql
+      version: ">=15.0.0" # Использует последнюю мажорную версию 15+
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+  values:
+    global:
+      postgresql:
+        auth:
+          username: app_user
+          database: appdb
+          existingSecret: database-auth
+          secretKeys:
+            adminPasswordKey: "postgresPassword"
+            userPasswordKey: "password"
+    # Настройки персистентности (PVC)
+    primary:
+      persistence:
+        enabled: true
+        size: 2Gi
+    # Настройки ресурсов
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi

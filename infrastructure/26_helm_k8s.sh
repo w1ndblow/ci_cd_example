@@ -2,7 +2,7 @@
 
 source common.sh
 
-echo "Введите github token:"
+echo "Введите postgres password"
 read -s POSTGRES_PASSWORD
 
 

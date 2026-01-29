@@ -1,4 +1,4 @@
-version: '3' # Версия спецификации docker-compose
+version: "3" # Версия спецификации docker-compose
 
 services: # Раздел описания сервисов
   web: # Описываем сервис нашего веб-приложения
@@ -18,7 +18,8 @@ services: # Раздел описания сервисов
       - DB_PORT=5432
       - DJANGO_SETTINGS_MODULE=django_project.settings_production
     # создание и накатывание миграций, сбор статики и запуск сервера разработки
-    command: bash -c "DJANGO_SETTINGS_MODULE=django_project.settings_production python manage.py makemigrations &&
+    command:
+      bash -c "DJANGO_SETTINGS_MODULE=django_project.settings_production python manage.py makemigrations &&
       python manage.py migrate  &&
       python manage.py collectstatic --noinput &&
       gunicorn django_project.wsgi:application --bind 0.0.0.0:8000"
@@ -33,7 +34,6 @@ services: # Раздел описания сервисов
     volumes:
       - ./configs/nginx.conf:/etc/nginx/conf.d/default.conf:ro # Проброс файла с описанием виртуальных хостов nginx
       - web-static:/usr/src/app/static # Проброс тома со статикой, что бы веб-сервер мог её кэшировать
-
 
 volumes: # Раздел с томами, используемыми в сервисах
   web-static:
