@@ -7,7 +7,7 @@ build:
   services:
     - docker:dind
   extends:
-    - .before_build
+    - .docker_settings
   script:
     - docker build . -t $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
     - docker push $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
