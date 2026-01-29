@@ -16,7 +16,7 @@ spec:
         - name: gitlab
       containers:
         - name: django
-          image: registry.gitlab.com/w1ndblow/ci-cd-example:3a498760
+          image: registry.gitlab.com/w1ndblow/ci-cd-example:211be2be
           env:
             - name: DB_NAME
               value: appdb
