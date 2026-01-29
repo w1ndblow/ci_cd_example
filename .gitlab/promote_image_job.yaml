@@ -31,5 +31,9 @@ promote:
     - >
       yq -i ".spec.template.spec.containers[0].image = \"$IMAGE_TAG\"" \
         infrastructure/minikube/app/deployment.yaml
+    - git add --all
+    - git commit -m "save state" || true
+    - git push origin ${CI_COMMIT_BRANCH}
+
   rules:
     - if: "$CI_COMMIT_TAG =~ /^v.*$/"
