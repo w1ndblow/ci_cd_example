@@ -6,7 +6,7 @@ promote:
   stage: promote
   services:
     - docker:dind
-  varibles:
+  variables:
     CACHE_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   extends:
     - .docker_settings
