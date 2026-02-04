@@ -39,8 +39,6 @@ spec:
           args:
             - >
               python manage.py migrate  && python manage.py collectstatic --noinput \
-
-
                 && gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
           ports:
             - containerPort: 8000
