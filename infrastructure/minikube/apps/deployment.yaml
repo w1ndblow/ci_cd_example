@@ -16,7 +16,7 @@ spec:
         - name: gitlab
       containers:
         - name: django
-          image: registry.gitlab.com/w1ndblow/ci-cd-example:v1.0.1
+          image: registry.gitlab.com/w1ndblow/ci-cd-example:v0.0.1
           env:
             - name: DB_NAME
               value: appdb
@@ -39,6 +39,7 @@ spec:
           args:
             - >
               python manage.py migrate  && python manage.py collectstatic --noinput && \
+
                 gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
           ports:
             - containerPort: 8000
