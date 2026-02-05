@@ -9,6 +9,9 @@ include:
   # - local: ".gitlab/docker_compose.yaml"
   # - local: ".gitlab/helm_pipeline.yaml"
 
+variables:
+  TARGET_HOST: 185.130.113.4
+
 stages:
   # - gate
   # - build
