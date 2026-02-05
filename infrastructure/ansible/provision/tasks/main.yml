@@ -11,21 +11,5 @@
   import_tasks: ci.yml
   tags: github
 
-# - name: "Nginx"
-#   import_tasks: web.yml
-
-- name: "Nginx stop"
-  service:
-    name: nginx
-    state: stopped
-
-- name: Container Nginx
-  community.docker.docker_container:
-    name: nginx-container
-    state: started
-    recreate: true
-    image: nginx:1.28
-    published_ports:
-      - 80:80
-    volumes:
-      - /etc/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+- name: "Install nginx"
+  import_tasks: web.yml
