@@ -14,8 +14,9 @@ ansible:
     - |
       cat <<EOF > infrastructure/inventory
       [vkcloud]
-      $TARGET_HOST ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_user=ubuntu
+      $TARGET_HOST ansible_user=ubuntu
       EOF
     - chmod a-w infrastructure/ansible # disable world-writtable access for config
     - cd infrastructure/ansible
     - ansible-playbook -i ../inventory main.yml --skip-tags=github
+    # $TARGET_HOST ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_user=ubuntu
