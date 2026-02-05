@@ -14,3 +14,8 @@
   image: python:3.12
   before_script:
     - pip install -r requirements.txt
+
+.ansible_job:
+  image: python:3.14-bookworm
+  before_script:
+    - pip install ansible

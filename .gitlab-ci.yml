@@ -5,16 +5,18 @@ include:
   # - local: .gitlab/test_job.yaml
   # - local: .gitlab/promote_image_job.yaml
   - local: .gitlab/deploy_with_ansible_job.yaml
+  - local: .gitlab/test_ansible_job.yaml
   # - local: ".gitlab/upstream.yaml"
   # - local: ".gitlab/docker_compose.yaml"
   # - local: ".gitlab/helm_pipeline.yaml"
 
 variables:
-  TARGET_HOST: 185.130.113.4
+  TARGET_HOST: 185.130.113.5
 
 stages:
   # - gate
   # - build
   # - test
   # - promote
+  - ansible-test
   - ansible

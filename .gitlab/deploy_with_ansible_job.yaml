@@ -1,8 +1,10 @@
+include:
+  local: ".gitlab/common.yaml"
+
 ansible:
   stage: ansible
-  image: python:3.14-bookworm
-  before_script:
-    - pip install ansible
+  extends:
+    - .ansible_job
   script:
     - mkdir ~/.ssh/ && chmod 700 ~/.ssh
     - eval $(ssh-agent -s)
