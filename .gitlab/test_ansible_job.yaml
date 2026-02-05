@@ -1,0 +1,11 @@
+include:
+  local: ".gitlab/common.yaml"
+
+ansible:
+  stage: ansible-test
+  extends:
+    - .ansible_job
+  script:
+    - chmod a-w infrastructure/ansible # disable world-writtable access for config
+    - cd infrastructure/ansible
+    - ansible-playbook -i ../inventory main.yml --syntax-check
