@@ -1,0 +1,9 @@
+include:
+  local: ".gitlab/common.yaml"
+
+tests:
+  stage: test
+  extends:
+    - .python_job
+  script:
+    - ./manage.py test

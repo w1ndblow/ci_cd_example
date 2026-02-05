@@ -1,0 +1,39 @@
+include:
+  - local: ".gitlab/common.yaml"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image:
+    name: moby/buildkit
+  tags:
+    - microk8s
+  extends:
+    - .docker_settings
+  script:
+    - >
+      buildctl-daemonless.sh build \
+       --frontend=dockerfile.v0 \
+       --local context=$CI_PROJECT_DIR \
+       --local dockerfile=$CI_PROJECT_DIR \
+       --output type=image,name=$CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA,push=true
+
+deploy:
+  stage: deploy
+  image:
+    name: alpine/helm
+  tags:
+    - microk8s
+  extends:
+    - .docker_settings
+  script:
+    - kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
+    - >
+      helm upgrade --install --atomic --values infrastructure/configs/values.yaml django infrastructure/django-chart \
+        --set-string envConfigs.DB_PASSWORD="$POSTGRES_PASSWORD" \
+        --set-string envConfigs.DB_HOST="testpostgresql.default.svc.cluster.local" \
+        --set image.repository="$CI_REGISTRY/w1ndblow/ci-cd-example" \
+        --set image.tag=$CI_COMMIT_SHORT_SHA

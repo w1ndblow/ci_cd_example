@@ -1,21 +1,22 @@
 import os
-import sys
-myPath = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, myPath)
-from settings import *
 
+# Явные импорты необходимых переменных из базовых настроек
+from django_project.settings import (
+    ALLOWED_HOSTS,
+)
+
+# Переопределение базовых настроек для продакшн
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME','app'),
-        'USER': os.environ.get('DB_USER','app'),
-        'PASSWORD': os.environ.get('DB_PASSWORD','app'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
-        'PORT': os.environ.get('DB_PORT', '5432')
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME", "app"),
+        "USER": os.environ.get("DB_USER", "app"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "app"),
+        "HOST": os.environ.get("DB_HOST", "db"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
 
-STATIC_URL = 'static/'
-STATIC_ROOT = "static"
 
-ALLOWED_HOSTS.append('*')
+# Добавляем "*" в ALLOWED_HOSTS
+ALLOWED_HOSTS.append("*")

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-deployment
+spec:
+  selector:
+    matchLabels:
+      app: django
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      imagePullSecrets:
+        - name: gitlab
+      containers:
+        - name: django
+          image: registry.gitlab.com/w1ndblow/ci-cd-example:v0.0.1
+          imagePullPolicy: Always
+          env:
+            - name: DB_NAME
+              value: appdb
+            - name: DB_USER
+              value: app_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-auth
+                  key: password
+            - name: DB_HOST
+              value: postgresql
+            - name: DB_PORT
+              value: "5432"
+            - name: VALUES
+              value: "value1"
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - >
+              python manage.py migrate  && python manage.py collectstatic --noinput && \
+                gunicorn django_project.wsgi:application --bind 0.0.0.0:8000
+          ports:
+            - containerPort: 8000

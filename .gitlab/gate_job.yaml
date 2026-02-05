@@ -1,0 +1,11 @@
+include:
+  local: ".gitlab/common.yaml"
+
+gate:
+  stage: gate
+  extends:
+    - .python_job
+  script:
+    - pip install ruff
+    - echo "there sonar"
+    - ruff check .

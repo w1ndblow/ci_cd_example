@@ -1,0 +1,13 @@
+# Service manifest
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-service
+spec:
+  selector:
+    app: django # Selects Pods with the label 'app=nginx' to route traffic to
+  type: NodePort # Exposes the service on a static port on each Node's IP
+  ports:
+    - protocol: TCP
+      port: 8000 # The port the Service itself exposes
+      targetPort: 8000

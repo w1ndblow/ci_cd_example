@@ -1,0 +1,16 @@
+.docker_settings:
+  before_script:
+    - mkdir -p  ~/.docker
+    - >
+      echo -n "{
+        \"auths\": {
+          \"$CI_REGISTRY\": {
+            \"auth\": \"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64 -w 0)\"
+          }
+        }
+      }" > ~/.docker/config.json
+
+.python_job:
+  image: python:3.12
+  before_script:
+    - pip install -r requirements.txt
