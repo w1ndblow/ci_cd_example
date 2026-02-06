@@ -1,3 +1,4 @@
 ---
 # defaults file for .
 docker_version: "27*"
+nginx_port: 80

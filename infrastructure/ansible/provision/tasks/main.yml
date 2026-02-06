@@ -10,3 +10,6 @@
 - name: "Installing runner"
   import_tasks: ci.yml
   tags: github
+
+- name: "Install nginx"
+  import_tasks: web.yml

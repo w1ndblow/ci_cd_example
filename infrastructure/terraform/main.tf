@@ -102,6 +102,7 @@ resource "vkcs_db_instance" "db-instance" {
   flavor_id   = "bf714720-78da-4271-ab7d-0cf5e2613f14"
   size        = 8
   volume_type = "ceph-ssd"
+  availability_zone = "MS1"
   disk_autoexpand {
     autoexpand    = true
     max_disk_size = 1000
