@@ -28,7 +28,7 @@ DEBUG = True
 # STATIC_ROOT = "static"
 
 ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS.append("*")
 
 # Application definition
 

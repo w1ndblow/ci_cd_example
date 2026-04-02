@@ -9,6 +9,8 @@ services: # Раздел описания сервисов
     #   - .env # Указание файла с переменными окружения
     # environment:
     # # создание и накатывание миграций, сбор статики и запуск сервера разработки
+    ports:
+      - 8000:8000
     command: >
       bash -c "python manage.py makemigrations && \
       python manage.py migrate && \
