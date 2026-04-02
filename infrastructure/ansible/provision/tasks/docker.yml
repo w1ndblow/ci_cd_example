@@ -19,21 +19,22 @@
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     state: present
 
-- name: Install Docker
+- name: Install Docker CE
   apt:
-    name: "docker.io={{ docker_version }}"
+    name: "{{item}}"
     state: present
     update_cache: yes
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
 
 - name: Set MTU for Docker default bridge
   copy:
     content: "{\n    \"mtu\": 1400\n}"
     dest: /etc/docker/daemon.json
-
-- name: Restart Docker service
-  service:
-    name: docker
-    state: restarted
 
 - name: Enable Docker CE service on startup
   service:
