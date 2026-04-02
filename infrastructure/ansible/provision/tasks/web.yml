@@ -7,14 +7,11 @@
   copy:
     src: ../configs/nginx.conf
     dest: /etc/nginx/nginx.conf
-- name: Start nginx
-  service:
-    name: nginx
-    state: started
+  notify: Retart nginx
 
 - name: Copy django directories
   copy:
-    src: ../../../../{{item}}
+    src: ../../../../{{item}} # files
     dest: ~/src/
   with_items:
     - pages

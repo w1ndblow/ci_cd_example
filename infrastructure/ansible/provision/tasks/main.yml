@@ -11,5 +11,5 @@
   import_tasks: ci.yml
   tags: github
 
-- name: "Install nginx"
+- name: "Install web"
   import_tasks: web.yml

@@ -1,2 +1,6 @@
 ---
 # handlers file for .
+- name: Retart nginx
+  service:
+    name: nginx
+    state: restarted
