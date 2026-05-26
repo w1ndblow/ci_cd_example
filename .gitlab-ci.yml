@@ -9,8 +9,8 @@ include:
 # - local: ".gitlab/upstream.yaml"
 # - local: ".gitlab/docker_compose_deploy_job.yaml"
 # - local: ".gitlab/helm_pipeline.yaml"
-variables:
-  TARGET_HOST: 158.160.89.170
+# variables:
+#   TARGET_HOST: 158.160.89.170
 
 stages:
   - gate
