@@ -20,5 +20,5 @@ instegration:
     POSTGRES_HOST: test_host
   extends:
     - .python_job
-  sripts:
+  script:
     - ./manage.py test pages.tests.PostgresIntegrationTestCase
