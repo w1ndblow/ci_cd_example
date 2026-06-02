@@ -2,27 +2,35 @@
 
 This repo contains several approach to delivery your django app
 
-Infrastructure
+## Infrastructure
 
-terraform vkcloud
+### terraform vkcloud
 
-ansible provision
+### ansible provision
 
-deploy
+Если вы запускаете только ansible, вы можете указать ip вашей виртульной машины вручную в файле инвенторизации, если запуск проходит после terraform файл `inventory` заполнится автоматически
 
-docker-compose
+```bash
+cd infrastructure
+vi inventory
+```
 
-kubernetes
+Запуск 
+```bash
+cd ansible && ansible-playbook -i ../inventory main.yml
+```
 
-kubernetes-helm
+### deploy
 
+### docker-compose
 
+### kubernetes
 
-3.
-Проверка pipeline
+### kubernetes-helm
+
+## Проверка pipeline
 
 ```
-cd backend
 git checkout master
 git pull
 git checkout -b "my_awesome_branch"
