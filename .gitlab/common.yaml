@@ -13,7 +13,15 @@
 .python_job:
   image: python:3.12
   before_script:
-    - pip install -r requirements.txt
+    - time pip install -r requirements.txt
+    - time pip install -r requirements-dev.txt
+  cache:
+    - key:
+        files:
+          - requirements.txt
+          - requirements-dev.txt
+      paths:
+        - .cache/pip
 
 .ansible_job:
   image: python:3.14-bookworm

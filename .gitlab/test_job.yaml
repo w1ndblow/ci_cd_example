@@ -6,4 +6,19 @@ tests:
   extends:
     - .python_job
   script:
-    - ./manage.py test
+    - ./manage.py test pages.tests.UnitTestCase
+
+instegration:
+  stage: test
+  services:
+    - name: postgres:16
+      alias: test_host
+  variables:
+    POSTGRES_DB: test_app
+    POSTGRES_USER: test_app
+    POSTGRES_PASSWORD: test_app
+    POSTGRES_HOST: test_host
+  extends:
+    - .python_job
+  script:
+    - ./manage.py test pages.tests.PostgresIntegrationTestCase
