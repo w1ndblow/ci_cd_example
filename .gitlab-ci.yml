@@ -13,7 +13,7 @@ include:
 #   TARGET_HOST: 158.160.89.170
 
 stages:
-   - gate
+  - gate
   # - build
   - test
   # - promote
