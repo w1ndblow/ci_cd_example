@@ -8,4 +8,4 @@ gate:
   script:
     - pip install ruff
     - echo "there sonar"
-    - ruff check .
+    - ruff check . --fix
