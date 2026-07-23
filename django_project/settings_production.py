@@ -6,7 +6,9 @@ from django_project.settings import (
     INSTALLED_APPS,
     MIDDLEWARE,
     WSGI_APPLICATION,
-    TEMPLATES
+    TEMPLATES,
+    SECRET_KEY,
+    BASE_DIR
 )
 
 # Переопределение базовых настроек для продакшн
@@ -22,6 +24,8 @@ DATABASES = {
 }
 
 ROOT_URLCONF = "django_project.urls"
+
+DEBUG=True
 
 # Добавляем "*" в ALLOWED_HOSTS
 ALLOWED_HOSTS.append("*")
