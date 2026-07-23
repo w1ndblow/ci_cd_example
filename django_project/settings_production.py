@@ -17,6 +17,7 @@ DATABASES = {
     }
 }
 
+ROOT_URLCONF = "django_project.urls"
 
 # Добавляем "*" в ALLOWED_HOSTS
 ALLOWED_HOSTS.append("*")
