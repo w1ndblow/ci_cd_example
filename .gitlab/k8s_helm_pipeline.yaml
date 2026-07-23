@@ -30,7 +30,7 @@ deploy:
   extends:
     - .docker_settings
   script:
-    - kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
+    #- kubectl create secret docker-registry docker-auth --from-file=~/.docker/config.json
     - >
       helm upgrade --install --atomic --values infrastructure/configs/values.yaml django infrastructure/django-chart \
         --set-string envConfigs.DB_PASSWORD="$POSTGRES_PASSWORD" \
