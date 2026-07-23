@@ -5,7 +5,8 @@ from django_project.settings import (
     ALLOWED_HOSTS,
     INSTALLED_APPS,
     MIDDLEWARE,
-    WSGI_APPLICATION
+    WSGI_APPLICATION,
+    TEMPLATES
 )
 
 # Переопределение базовых настроек для продакшн
