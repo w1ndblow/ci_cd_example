@@ -1,7 +1,7 @@
 include:
   # - local: .gitlab/common.yaml
   # - local: .gitlab/build_with_dind_job.yaml
-  #- local: .gitlab/gate_job.yaml
+  - local: .gitlab/gate_job.yaml
   - local: .gitlab/test_job.yaml
   # - local: .gitlab/promote_image_job.yaml
   #- local: .gitlab/deploy_with_ansible_job.yaml
@@ -13,7 +13,7 @@ include:
 #   TARGET_HOST: 158.160.89.170
 
 stages:
-  # - gate
+   - gate
   # - build
   - test
   # - promote
