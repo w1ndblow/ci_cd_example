@@ -26,7 +26,7 @@ deploy:
   image:
     name: alpine/helm
   tags:
-    - microk8s
+    - minikube
   extends:
     - .docker_settings
   script:
