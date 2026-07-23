@@ -17,5 +17,5 @@ include:
 #   - build
 #   - test
 #   - promote
-  # - ansible-test
-  # - ansible
+#   - ansible-test
+#   - ansible
