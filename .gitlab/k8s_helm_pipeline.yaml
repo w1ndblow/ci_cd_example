@@ -10,7 +10,7 @@ build:
   image:
     name: moby/buildkit
   tags:
-    - microk8s
+    - minikube
   extends:
     - .docker_settings
   script:
