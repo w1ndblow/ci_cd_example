@@ -3,6 +3,9 @@ import os
 # Явные импорты необходимых переменных из базовых настроек
 from django_project.settings import (
     ALLOWED_HOSTS,
+    INSTALLED_APPS,
+    MIDDLEWARE,
+    WSGI_APPLICATION
 )
 
 # Переопределение базовых настроек для продакшн
