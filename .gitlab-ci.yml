@@ -8,7 +8,7 @@ include:
   # - local: .gitlab/test_ansible_job.yaml
   # - local: ".gitlab/upstream.yaml"
   # - local: ".gitlab/docker_compose_deploy_job.yaml"
-  - local: ".gitlab/helm_pipeline.yaml"
+  - local: ".gitlab/k8s_helm_pipeline.yaml"
 # variables:
 #   TARGET_HOST: 46.243.211.79
 
