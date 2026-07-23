@@ -1,9 +1,7 @@
 import os
 
 # Явные импорты необходимых переменных из базовых настроек
-from django_project.settings import (
-    ALLOWED_HOSTS,
-)
+from django_project.settings import *
 
 # Переопределение базовых настроек для продакшн
 DATABASES = {
@@ -16,7 +14,6 @@ DATABASES = {
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
-
-
+ALLOWED_HOSTS = []
 # Добавляем "*" в ALLOWED_HOSTS
 ALLOWED_HOSTS.append("*")
