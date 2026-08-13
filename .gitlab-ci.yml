@@ -1,6 +1,6 @@
 include:
   # - local: .gitlab/common.yaml
-  - local: .gitlab/upsteam.yaml
+  #- local: .gitlab/upsteam.yaml
   # - local: .gitlab/build_with_dind_job.yaml
   # - local: .gitlab/gate_job.yaml
   # - local: .gitlab/test_job.yaml
@@ -11,16 +11,20 @@ include:
 # - local: ".gitlab/helm_pipeline.yaml"
 # variables:
 #   TARGET_HOST: 158.160.89.170
-
-stages:
+  - project: "w1ndblow/example-pipelines"
+    file: "/lib/build_with_dind.yaml"
+  - component: https://$CI_SERVER_FQDN/w1ndblow/templater-component/cookiecutter@~latest
+    inputs:
+      template_url: 'https://github.com/w1ndblow/cookiecutter-click-app.git'
+#stages:
   # - gate
   #- build
-  - pipeline
+  #- pipeline
   # - test
   # - promote
   # - ansible-test
   # - ansible
-
+stages: [ generate_project ]
 
 # build2:
 #   stage: build
@@ -34,14 +38,14 @@ stages:
 #     - docker push $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
 
 
-child-local:
-  stage: pipeline
-  trigger:
-    include:
-      - local: .gitlab/k8s_helm_pipeline.yaml
+# child-local:
+#   stage: pipeline
+#   trigger:
+#     include:
+#       - local: .gitlab/k8s_helm_pipeline.yaml
 
 
-child-remote:
-  stage: pipeline
-  extends:
-    - .deploy_very_security
+# child-remote:
+#   stage: pipeline
+#   extends:
+#     - .deploy_very_security
