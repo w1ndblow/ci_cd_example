@@ -1,5 +1,5 @@
-#include:
-  # - local: .gitlab/common.yaml
+include:
+  - local: .gitlab/common.yaml
   # - local: .gitlab/build_with_dind_job.yaml
   # - local: .gitlab/gate_job.yaml
   # - local: .gitlab/test_job.yaml
@@ -19,19 +19,6 @@ stages:
   # - promote
   # - ansible-test
   # - ansible
-
-
-.docker_settings:
-  before_script:
-    - mkdir -p  ~/.docker
-    - >
-      echo -n "{
-        \"auths\": {
-          \"$CI_REGISTRY\": {
-            \"auth\": \"$(echo -n $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD | base64 -w 0)\"
-          }
-        }
-      }" > ~/.docker/config.json
 
 
 build2:
