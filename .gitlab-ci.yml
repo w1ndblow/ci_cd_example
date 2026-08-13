@@ -24,7 +24,7 @@ include:
   # - promote
   # - ansible-test
   # - ansible
-stages: [ generate_project ]
+stages: [ generate_project, build ]
 
 # build2:
 #   stage: build
