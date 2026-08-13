@@ -1,12 +1,12 @@
 include:
-  - local: .gitlab/common.yaml
+  # - local: .gitlab/common.yaml
+  - local: .gitlab/upsteam.yaml
   # - local: .gitlab/build_with_dind_job.yaml
   # - local: .gitlab/gate_job.yaml
   # - local: .gitlab/test_job.yaml
   # - local: .gitlab/promote_image_job.yaml
   #- local: .gitlab/deploy_with_ansible_job.yaml
 #  - local: .gitlab/test_ansible_job.yaml
-# - local: ".gitlab/upstream.yaml"
 # - local: ".gitlab/docker_compose_deploy_job.yaml"
 # - local: ".gitlab/helm_pipeline.yaml"
 # variables:
@@ -14,20 +14,33 @@ include:
 
 stages:
   # - gate
-  - build
+  #- build
+  - deploy
   # - test
   # - promote
   # - ansible-test
   # - ansible
 
 
-build2:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
+# build2:
+#   stage: build
+#   image: docker:latest
+#   services:
+#     - docker:dind
+#   extends:
+#     - .docker_settings
+#   script:
+#     - docker build . -t $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
+#     - docker push $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
+
+
+child-local:
+  trigger:
+    include:
+      - local: .gitlab/helm_pipeline.yaml
+
+
+child-remote:
+  stage: deploy
   extends:
-    - .docker_settings
-  script:
-    - docker build . -t $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
-    - docker push $CI_REGISTRY/w1ndblow/ci-cd-example:$CI_COMMIT_SHORT_SHA
+    - .deploy_very_security
