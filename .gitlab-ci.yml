@@ -38,7 +38,7 @@ child-local:
   stage: pipeline
   trigger:
     include:
-      - local: .gitlab/helm_pipeline.yaml
+      - local: .gitlab/k8s_helm_pipeline.yaml
 
 
 child-remote:
