@@ -15,7 +15,7 @@ include:
 stages:
   # - gate
   #- build
-  - deploy
+  - pipeline
   # - test
   # - promote
   # - ansible-test
@@ -35,12 +35,13 @@ stages:
 
 
 child-local:
+  stage: pipeline
   trigger:
     include:
       - local: .gitlab/helm_pipeline.yaml
 
 
 child-remote:
-  stage: deploy
+  stage: pipeline
   extends:
     - .deploy_very_security
