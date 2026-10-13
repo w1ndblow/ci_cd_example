@@ -10,6 +10,7 @@ ansible:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+    - echo -e "KexAlgorithms curve25519-sha256"
     - echo -e "UserKnownHostsFile ~/.ssh/known_hosts\n" >> ~/.ssh/config
     - touch ~/.ssh/known_hosts
     - ssh ubuntu@$TARGET_HOST uptime
