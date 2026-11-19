@@ -22,7 +22,7 @@ stages:
   - test
   # - promote
   # - ansible-test
-  # - ansible
+  - ansible
 
 
 # build2:
