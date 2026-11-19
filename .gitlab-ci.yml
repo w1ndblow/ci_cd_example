@@ -7,7 +7,7 @@ include:
   # - local: .gitlab/promote_image_job.yaml
   # - local: .gitlab/deploy_with_ansible_job.yaml don't work with 2604
   # - local: .gitlab/test_ansible_job.yaml
-  - local: ".gitlab/docker_compose_deploy_job.yaml"
+  - local: ".gitlab/docker_compose_deploy_job_dev.yaml"
 # - local: ".gitlab/helm_pipeline.yaml"
 variables:
     TARGET_HOST: 188.93.54.10
@@ -22,7 +22,7 @@ stages:
   - test
   # - promote
   # - ansible-test
-  - ansible
+  - deploy
 
 
 # build2:
