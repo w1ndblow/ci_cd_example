@@ -1,29 +1,28 @@
 include:
   # - local: .gitlab/common.yaml
   #- local: .gitlab/upsteam.yaml
-  # - local: .gitlab/build_with_dind_job.yaml
-  # - local: .gitlab/gate_job.yaml
-  # - local: .gitlab/test_job.yaml
+  - local: .gitlab/build_with_dind_job.yaml
+  - local: .gitlab/gate_job.yaml
+  - local: .gitlab/test_job.yaml
   # - local: .gitlab/promote_image_job.yaml
- - local: .gitlab/deploy_with_ansible_job.yaml
- - local: .gitlab/test_ansible_job.yaml
-# - local: ".gitlab/docker_compose_deploy_job.yaml"
+  - local: .gitlab/deploy_with_ansible_job.yaml
+ # - local: .gitlab/test_ansible_job.yaml
+ # - local: ".gitlab/docker_compose_deploy_job.yaml"
 # - local: ".gitlab/helm_pipeline.yaml"
 variables:
-  TARGET_HOST: 111.88.128.232
+    TARGET_HOST: 188.93.54.10
   # - project: "w1ndblow/example-pipelines"
   #   file: "/lib/build_with_dind.yaml"
   # - component: $CI_SERVER_FQDN/w1ndblow/templater-component/cookiecutter@~latest
   #   inputs:
   #     template_url: 'https://github.com/w1ndblow/cookiecutter-click-app.git'
 stages:
-  # - gate
-  #- build
-  #- pipeline
-  # - test
+  - gate
+  - build
+  - test
   # - promote
-  - ansible-test
-  - ansible
+  # - ansible-test
+  # - ansible
 
 
 # build2:
