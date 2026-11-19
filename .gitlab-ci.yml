@@ -5,9 +5,9 @@ include:
   - local: .gitlab/gate_job.yaml
   - local: .gitlab/test_job.yaml
   # - local: .gitlab/promote_image_job.yaml
-  - local: .gitlab/deploy_with_ansible_job.yaml
- # - local: .gitlab/test_ansible_job.yaml
- # - local: ".gitlab/docker_compose_deploy_job.yaml"
+  # - local: .gitlab/deploy_with_ansible_job.yaml don't work with 2604
+  # - local: .gitlab/test_ansible_job.yaml
+  - local: ".gitlab/docker_compose_deploy_job.yaml"
 # - local: ".gitlab/helm_pipeline.yaml"
 variables:
     TARGET_HOST: 188.93.54.10
