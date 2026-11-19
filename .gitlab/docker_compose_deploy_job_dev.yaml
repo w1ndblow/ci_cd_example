@@ -3,6 +3,9 @@ deploy_docker_compose:
   stage: deploy
   tags:
     - cloud_vm
+  image: docker:latest
+  services:
+    - docker:dind
   script:
     - docker compose -f docker-compose.dev.yml down
     - docker compose -f docker-compose.dev.yml build
